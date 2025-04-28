@@ -62,7 +62,7 @@ const initializeSettings = async (vehicleId) => {
 export const initializeUser = async (jid, vehicleId) => {
     const number = jid.split('@')[0];
     const userRef = ref(db, `wausers/${number}`);
-    await set(userRef, { initialized: true, vehicleId });
+    await set(userRef, { initialized: true, isGroup: jid.endsWith('@g.us'), vehicleId });
     await initializeSettings(vehicleId);
 };
 export const setRadius = async (vehicleId, radius) => {

@@ -20,6 +20,12 @@ interface KafkaNotificationMessage extends Record<string, unknown> {
   vehicleId: string;
   message: string;
   number: string;
+  isGroup: boolean;
+}
+
+interface UserDetails {
+  number: string;
+  isGroup: boolean;
 }
 
 const KAFKA_TOPIC = 'whatsapp-notifications';
@@ -77,9 +83,10 @@ export const listenToVehicleLocations = () => {
           `[!] Vehicle ${vehicleId} exceeded the radius (${settings.value} km).`,
         );
 
-        const number = await getWhatsAppNumber(vehicleId);
-        if (!number) {
-          console.log(`[X] No WhatsApp number found for vehicle ${vehicleId}`);
+        // const number = await getWhatsAppNumber(vehicleId);
+        const details = await getUserDetails(vehicleId);
+        if (!details) {
+          console.warn(`[X] No WA User found for vehicleId ${vehicleId}`);
           return;
         }
 
@@ -89,7 +96,8 @@ export const listenToVehicleLocations = () => {
             message: `🚨🚨🚨 *ᴀʟᴇʀᴛ* 🚨🚨🚨\n*Motor anda dengan ID ${vehicleId}* keluar dari radius sejauh *${distance.toFixed(
               2,
             )}* km dari lokasi awal.\n\n🛎️ Notifikasi akan kembali dikirimkan dalam interval ${settings.notificationInterval} menit kedepan\n\n*/ɴᴏᴛɪꜰʏ ᴏꜰꜰ* untuk mematikan notifikasi\n*/sᴇᴛɪɴᴛᴇʀᴠᴀʟ <ᴍɪɴ>* untuk merubah interval`,
-            number,
+            number: details.number,
+            isGroup: details.isGroup
           };
           await sendNotification(kafkaMessage);
 
@@ -104,7 +112,8 @@ export const listenToVehicleLocations = () => {
             const kafkaMessage: KafkaNotificationMessage = {
               vehicleId,
               message: `🚨🚨🚨 *sᴇᴄᴜʀɪᴛʏ ᴍᴏᴅᴇ* 🚨🚨🚨\n*Motor anda dengan ID ${vehicleId}* dimatikan secara otomatis karena security mode diset ke *HIGH*`,
-              number,
+              number: details.number,
+              isGroup: details.isGroup,
             };
             await sendNotification(kafkaMessage);
 
@@ -166,6 +175,29 @@ const getWhatsAppNumber = async (vehicleId: string): Promise<string | null> => {
   }
 
   return null;
+};
+
+const getUserDetails = async (
+  vehicleId: string,
+): Promise<UserDetails | null> => {
+  const wausersRef = db
+    .ref('wausers')
+    .orderByChild('vehicleId')
+    .equalTo(vehicleId);
+
+  const snapshot = await wausersRef.once('value');
+  if (!snapshot.exists()) return null;
+
+  const users = snapshot.val() as Record<
+    string,
+    { vehicleId: string; isGroup: boolean }
+  >;
+
+  const [number, user] = Object.entries(users)[0];
+  return {
+    number,
+    isGroup: user.isGroup,
+  };
 };
 
 const sendNotification = async (message: KafkaNotificationMessage) => {

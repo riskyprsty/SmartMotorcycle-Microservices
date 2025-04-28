@@ -145,3 +145,40 @@ export const formatInfoMessage = async (vehicleId) => {
         return 'Error ketika mendapatkan info settings';
     }
 };
+export const formatModemMessage = async (vehicleId) => {
+    try {
+        const vehicleStatus = await getVehicleStatus(vehicleId);
+        const message = `✨ Informasi status modem perangkat dengan ID *${vehicleId}*
+      
+   ╭═══❖ sᴛᴀᴛᴜs ᴍᴏᴅᴇᴍ ❖═══╮
+   │ ◦ 🌐 ɪᴘ ᴀᴅᴅʀᴇss:   ${vehicleStatus.modem.ip_address}
+   │ ◦ ⛓️ ᴏᴘᴇʀᴀᴛᴏʀ:   ${vehicleStatus.modem.operator}
+   │ ◦ 📶 sɪɢɴᴀʟ:   ${vehicleStatus.modem.signal_strength} *dBm*
+   │ ◦ 🔓 ɪᴍᴇɪ:   ${vehicleStatus.modem.IMEI}
+   │ ◦ 🔐 ɪᴍsɪ:   ${vehicleStatus.modem.IMSI}
+   ╰══════════════════╯
+      `;
+        return message;
+    }
+    catch (e) {
+        console.log(e);
+        return 'Error ketika mendapatkan info settings';
+    }
+};
+export const formatTemperatureMessage = async (vehicleId) => {
+    try {
+        const vehicleStatus = await getVehicleStatus(vehicleId);
+        const message = `✨ Informasi status sensor temperatur pada perangkat dengan ID *${vehicleId}*
+      
+   ╭═══❖ sᴛᴀᴛᴜs ᴍᴏᴅᴇᴍ ❖═══╮
+   │ ◦ 🫧 ʜᴜᴍɪᴅɪᴛʏ:   ${vehicleStatus.monitoring.humidity}
+   │ ◦ 🌡️ ᴛᴇᴍᴘᴇʀᴀᴛᴜʀᴇ:   ${vehicleStatus.monitoring.temperature} *Celcius*
+   ╰══════════════════╯
+      `;
+        return message;
+    }
+    catch (e) {
+        console.log(e);
+        return 'Error ketika mendapatkan info settings';
+    }
+};

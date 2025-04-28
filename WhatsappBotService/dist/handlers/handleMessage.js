@@ -1,6 +1,6 @@
 import { sendMessageWTyping } from '../utils/messageUtils.js';
 import { isUserInitialized, initializeUser, getUserVehicleId, setRadius, setNotify, setSwitch, setNotifInterval, setSecurityMode, } from '../services/firebaseService.js';
-import { formatInfoMessage, formatVehicleLocation, formatVehicleStatusMessage, helpMessage, initializeExampleMessage, intervalExampleMessage, notifyExampleMessage, securityExampleMessage, successInitializeMessage, unitializedMessage, } from '../messages/messageComposer.js';
+import { formatInfoMessage, formatModemMessage, formatTemperatureMessage, formatVehicleLocation, formatVehicleStatusMessage, helpMessage, initializeExampleMessage, intervalExampleMessage, notifyExampleMessage, securityExampleMessage, successInitializeMessage, unitializedMessage, } from '../messages/messageComposer.js';
 const commands = {
     init: async (sock, jid, senderName, args) => {
         const vehicleId = args[0];
@@ -93,6 +93,14 @@ const commands = {
     status: async (sock, jid) => {
         const vehicleId = await getUserVehicleId(jid);
         await sendMessageWTyping(sock, { text: await formatVehicleStatusMessage(vehicleId) }, jid);
+    },
+    modem: async (sock, jid) => {
+        const vehicleId = await getUserVehicleId(jid);
+        await sendMessageWTyping(sock, { text: await formatModemMessage(vehicleId) }, jid);
+    },
+    temperature: async (sock, jid) => {
+        const vehicleId = await getUserVehicleId(jid);
+        await sendMessageWTyping(sock, { text: await formatTemperatureMessage(vehicleId) }, jid);
     },
 };
 export const commandMiddleware = async (sock, jid, command, username, args, handler) => {

@@ -159,7 +159,7 @@ const startSock = async () => {
                         msg.message?.extendedTextMessage?.text;
 
                      console.log('[+] [BAILEYS] Received message: ', text);
-
+                     console.log(msg)
                      if (
                         typeof text === 'string' &&
                         typeof msg.pushName === 'string'

@@ -13,7 +13,7 @@ importers:
         version: 10.0.1
       '@whiskeysockets/baileys':
         specifier: ^6.7.9
-        version: 6.7.9(eslint@9.15.0)(typescript@5.6.3)
+        version: 6.7.9(eslint@9.15.0)(qrcode-terminal@0.12.0)(typescript@5.6.3)
       firebase:
         specifier: ^11.0.2
         version: 11.0.2
@@ -32,6 +32,9 @@ importers:
       pino:
         specifier: ^7.0.0
         version: 7.11.0
+      qrcode-terminal:
+        specifier: ^0.12.0
+        version: 0.12.0
     devDependencies:
       '@typescript-eslint/eslint-plugin':
         specifier: 8.15.0
@@ -618,8 +621,8 @@ packages:
       eslint: '*'
       typescript: '>=4'
 
-  '@whiskeysockets/libsignal-node@https://codeload.github.com/WhiskeySockets/libsignal-node/tar.gz/1bd9275d9e621d2ba899087ebdf548b3a5a4f05e':
-    resolution: {tarball: https://codeload.github.com/WhiskeySockets/libsignal-node/tar.gz/1bd9275d9e621d2ba899087ebdf548b3a5a4f05e}
+  '@whiskeysockets/libsignal-node@https://codeload.github.com/WhiskeySockets/libsignal-node/tar.gz/d13b6622a208d3037a98b6f447bbde70261c39a9':
+    resolution: {tarball: https://codeload.github.com/WhiskeySockets/libsignal-node/tar.gz/d13b6622a208d3037a98b6f447bbde70261c39a9}
     version: 2.0.1
 
   acorn-jsx@5.3.2:
@@ -1562,6 +1565,10 @@ packages:
 
   qoa-format@1.0.1:
     resolution: {integrity: sha512-dMB0Z6XQjdpz/Cw4Rf6RiBpQvUSPCfYlQMWvmuWlWkAT7nDQD29cVZ1SwDUB6DYJSitHENwbt90lqfI+7bvMcw==}
+
+  qrcode-terminal@0.12.0:
+    resolution: {integrity: sha512-EXtzRZmC+YGmGlDFbXKxQiMZNwCLEO6BANKXG4iCtSIM0yqc/pappSx3RIKr4r0uh5JsBckOXeKrB3Iz7mdQpQ==}
+    hasBin: true
 
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
@@ -2539,7 +2546,7 @@ snapshots:
       '@wasm-audio-decoders/common': 9.0.5
       codec-parser: 2.5.0
 
-  '@whiskeysockets/baileys@6.7.9(eslint@9.15.0)(typescript@5.6.3)':
+  '@whiskeysockets/baileys@6.7.9(eslint@9.15.0)(qrcode-terminal@0.12.0)(typescript@5.6.3)':
     dependencies:
       '@adiwajshing/keyed-db': 0.2.4
       '@hapi/boom': 9.1.4
@@ -2550,7 +2557,7 @@ snapshots:
       cache-manager: 5.7.6
       futoin-hkdf: 1.5.3
       libphonenumber-js: 1.11.15
-      libsignal: '@whiskeysockets/libsignal-node@https://codeload.github.com/WhiskeySockets/libsignal-node/tar.gz/1bd9275d9e621d2ba899087ebdf548b3a5a4f05e'
+      libsignal: '@whiskeysockets/libsignal-node@https://codeload.github.com/WhiskeySockets/libsignal-node/tar.gz/d13b6622a208d3037a98b6f447bbde70261c39a9'
       lodash: 4.17.21
       music-metadata: 7.14.0
       node-cache: 5.1.2
@@ -2558,6 +2565,8 @@ snapshots:
       protobufjs: 7.4.0
       uuid: 10.0.0
       ws: 8.18.0
+    optionalDependencies:
+      qrcode-terminal: 0.12.0
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -2576,7 +2585,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@whiskeysockets/libsignal-node@https://codeload.github.com/WhiskeySockets/libsignal-node/tar.gz/1bd9275d9e621d2ba899087ebdf548b3a5a4f05e':
+  '@whiskeysockets/libsignal-node@https://codeload.github.com/WhiskeySockets/libsignal-node/tar.gz/d13b6622a208d3037a98b6f447bbde70261c39a9':
     dependencies:
       curve25519-js: 0.0.4
       protobufjs: 6.8.8
@@ -3650,6 +3659,8 @@ snapshots:
   qoa-format@1.0.1:
     dependencies:
       '@thi.ng/bitstream': 2.4.4
+
+  qrcode-terminal@0.12.0: {}
 
   queue-microtask@1.2.3: {}
 
